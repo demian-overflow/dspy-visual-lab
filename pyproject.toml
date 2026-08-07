@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dspy-lab"
+version = "0.1.0"
+description = "DSPy experimental lab for visual/creative editing"
+requires-python = ">=3.12"
+dependencies = [
+    "dspy>=3.3,<4",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "aiohttp>=3.9",
+    "orjson>=3.10",
+    "Pillow>=10.4",
+    "cairosvg>=2.7,<3",
+    "langfuse>=3,<4",
+    "openinference-instrumentation-dspy>=0.1.20",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.2",
+    "pytest-asyncio>=0.23",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+addopts = "-ra -v"
+testpaths = ["tests"]
