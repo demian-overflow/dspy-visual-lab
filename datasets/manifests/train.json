@@ -1,0 +1,11 @@
+[
+  {
+    "id":"poster_001",
+    "image_path":
+      "raw/images/poster_001.png",
+    "category":"poster",
+    "difficulty":"easy",
+    "scene_path":
+      "processed/scenes/poster_001.json"
+  }
+]
