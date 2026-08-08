@@ -1,8 +1,9 @@
-"""Integration test against the real Gemini API.
+"""Integration test against the real, live VISION_MODEL provider.
 
-Skipped unless a real GEMINI_API_KEY is configured. This is the only test that
-exercises the full LM path (DSPy -> AdapterLM -> GeminiAdapter -> HTTP), which
-is where message-shape and response-shape bugs hide.
+Skipped unless a real API key is configured for whichever provider
+VISION_MODEL currently points at. This is the only test that exercises the
+full LM path (DSPy -> AdapterLM -> adapter -> HTTP), which is where
+message-shape and response-shape bugs hide.
 """
 
 import asyncio
@@ -24,16 +25,17 @@ IMAGE = Path(__file__).resolve().parents[2] / "datasets" / "raw" / "images" / "p
 
 _PLACEHOLDER_KEYS = (None, "", "xxx")
 
-requires_gemini_key = pytest.mark.skipif(
-    settings.gemini_api_key in _PLACEHOLDER_KEYS,
-    reason="GEMINI_API_KEY not configured; skipping live Gemini integration test",
+requires_vision_model_key = pytest.mark.skipif(
+    settings.api_key_for(VISION_MODEL.provider) in _PLACEHOLDER_KEYS,
+    reason=f"no API key configured for VISION_MODEL.provider={VISION_MODEL.provider!r}; "
+    "skipping live integration test",
 )
 
 
-@requires_gemini_key
+@requires_vision_model_key
 def test_scene_parser_returns_valid_scene_from_real_image():
     client = HTTPClient()
-    adapter = build_adapter(VISION_MODEL, api_key=settings.gemini_api_key, client=client)
+    adapter = build_adapter(VISION_MODEL, api_key=settings.api_key_for(VISION_MODEL.provider), client=client)
 
     with dspy.context(lm=AdapterLM(adapter=adapter, model_name=VISION_MODEL.name)):
         try:

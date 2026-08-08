@@ -15,18 +15,30 @@ def _get_adapter():
     global _adapter, _client
     if _adapter is None:
         _client = HTTPClient()
-        _adapter = build_adapter(VISION_MODEL, api_key=settings.gemini_api_key, client=_client)
+        _adapter = build_adapter(
+            VISION_MODEL, api_key=settings.api_key_for(VISION_MODEL.provider), client=_client
+        )
     return _adapter
 
 
 def _extract_text(raw_response):
+    # Gemini shapes the response as candidates[0].content.parts[*].text;
+    # OpenRouter (and other OpenAI-compatible providers) use
+    # choices[0].message.content. VISION_MODEL.provider decides which
+    # adapter -- and therefore which shape -- is actually in play.
     try:
-        return raw_response["candidates"][0]["content"]["parts"][0]["text"]
-    except (KeyError, IndexError, TypeError) as exc:
-        raise ValueError(
-            f"ocr: unexpected Gemini response shape (no candidates[0].content.parts[0].text): "
-            f"{raw_response!r}"
-        ) from exc
+        candidates = raw_response.get("candidates")
+        if candidates:
+            parts = candidates[0].get("content", {}).get("parts", [])
+            return "".join(p.get("text", "") for p in parts)
+
+        choices = raw_response.get("choices")
+        if choices:
+            return choices[0].get("message", {}).get("content", "")
+    except (AttributeError, KeyError, IndexError, TypeError) as exc:
+        raise ValueError(f"ocr: unrecognized model response shape: {raw_response!r}") from exc
+
+    raise ValueError(f"ocr: unrecognized model response shape: {raw_response!r}")
 
 
 @register(

@@ -56,5 +56,5 @@ async def test_detect_objects_raises_clear_error_on_malformed_response_shape(two
     fake_vision = AsyncMock(return_value={"unexpected": "shape"})
     with patch("tools.vision.objects._get_adapter") as get_adapter:
         get_adapter.return_value.vision = fake_vision
-        with pytest.raises(ValueError, match="unexpected Gemini response shape"):
+        with pytest.raises(ValueError, match="unrecognized model response shape"):
             await detect_objects(str(two_color_image))

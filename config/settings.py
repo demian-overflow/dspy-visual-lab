@@ -28,5 +28,20 @@ class Settings(BaseSettings):
     max_agent_iterations: int = 5
 
 
+    def api_key_for(self, provider: str) -> str | None:
+        """Look up the right API key for a ModelConfig.provider value.
+
+        Call sites used to hardcode `settings.gemini_api_key` regardless of
+        which provider a ModelConfig actually pointed at -- harmless while
+        every model happened to be Gemini, but silently wrong (wrong key
+        sent to the wrong provider) the moment one model config uses
+        OpenRouter instead.
+        """
+        return {
+            "gemini": self.gemini_api_key,
+            "openrouter": self.openrouter_api_key,
+        }.get(provider)
+
+
 
 settings = Settings()

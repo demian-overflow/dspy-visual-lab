@@ -72,7 +72,7 @@ async def main():
     # inside a running event loop -- hence main() being async.
     client = HTTPClient()
     try:
-        adapter = build_adapter(VISION_MODEL, api_key=settings.gemini_api_key, client=client)
+        adapter = build_adapter(VISION_MODEL, api_key=settings.api_key_for(VISION_MODEL.provider), client=client)
         dspy.settings.configure(lm=AdapterLM(adapter=adapter, model_name=VISION_MODEL.name))
 
         manifest = load_manifest(args.manifest)
