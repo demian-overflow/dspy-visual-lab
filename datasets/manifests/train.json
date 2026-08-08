@@ -1,11 +1,16 @@
 [
   {
-    "id":"poster_001",
-    "image_path":
-      "raw/images/poster_001.png",
-    "category":"poster",
-    "difficulty":"easy",
-    "scene_path":
-      "processed/scenes/poster_001.json"
+    "id": "poster_001",
+    "image_path": "raw/images/poster_001.jpg",
+    "category": "poster",
+    "difficulty": "easy",
+    "scene_path": "processed/scenes/poster_001.json"
+  },
+  {
+    "id": "poster_002",
+    "image_path": "raw/images/poster_002.jpg",
+    "category": "poster",
+    "difficulty": "easy",
+    "scene_path": "processed/scenes/poster_002.json"
   }
 ]
