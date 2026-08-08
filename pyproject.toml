@@ -17,6 +17,7 @@ dependencies = [
     "cairosvg>=2.7,<3",
     "langfuse>=3,<4",
     "openinference-instrumentation-dspy>=0.1.20",
+    "optuna>=3.6",
 ]
 
 [dependency-groups]
