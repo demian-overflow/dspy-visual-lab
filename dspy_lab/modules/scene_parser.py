@@ -25,6 +25,14 @@ class SceneParser(dspy.Module):
         if isinstance(image, (str, Path)):
             image = dspy.Image.from_path(str(image))
 
-        return self.parser(
+        result = self.parser(
             image=image
         )
+
+        # ExtractScene.scene is a typed Scene pydantic field (for reliable
+        # structured output); callers (SceneScorer, CreativeAgent, the
+        # entry-point script) all expect a plain dict/JSON string, so
+        # convert once here rather than at every call site.
+        result.scene = result.scene.model_dump()
+
+        return result

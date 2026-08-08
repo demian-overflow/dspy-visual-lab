@@ -88,6 +88,11 @@ def _as_scene_dict(value):
     scene = getattr(value, "scene", value)
     if isinstance(scene, str):
         return json.loads(scene)
+    if hasattr(scene, "model_dump"):
+        # A real Scene pydantic instance (ExtractScene.scene is typed Scene,
+        # so a dspy.Example/dspy.Prediction's .scene may be one directly)
+        # rather than a dict or JSON string.
+        return scene.model_dump()
     return scene
 
 

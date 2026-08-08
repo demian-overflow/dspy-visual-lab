@@ -18,6 +18,7 @@ from experiments.tracker import ExperimentTracker
 from models.adapters.aiohttp_client import HTTPClient
 from models.factory import build_adapter
 from observability import langfuse_tracing
+from scene.schema import Scene
 
 DEFAULT_DATASET_ROOT = Path(__file__).resolve().parents[1] / "datasets"
 
@@ -45,8 +46,11 @@ def run(samples, dataset_root: Path, optimize: bool = False) -> dict:
         score = scorer.score(gold_scene, pred_scene)
         results.append({"sample": sample.id, "score": score})
 
+        # ExtractScene.scene is a typed Scene field, so a demo example's
+        # value needs to be a real Scene instance (not a JSON string) to
+        # match what MIPROv2 will actually format into the prompt.
         examples.append(
-            dspy.Example(image=image, scene=json.dumps(gold_scene)).with_inputs("image")
+            dspy.Example(image=image, scene=Scene(**gold_scene)).with_inputs("image")
         )
 
     if optimize:
