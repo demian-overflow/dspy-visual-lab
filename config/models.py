@@ -16,7 +16,7 @@ class ModelConfig:
 
 
 VISION_MODEL = ModelConfig(
-    name="gemini-2.5-flash",
+    name="gemini-2.0-flash",
     provider="gemini"
 )
 
