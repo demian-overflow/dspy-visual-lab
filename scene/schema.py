@@ -80,6 +80,12 @@ class Scene(BaseModel):
 
     layout: Layout = Layout()
 
+    # A short, condensed read of the creative's overall mood/tone (e.g.
+    # "aspirational, adventurous, patriotic") -- distinct from the literal
+    # visual fields above, closer to what a viewer would say the piece is
+    # going for.
+    sentiment: str | None = None
+
     metadata: Dict = Field(
         default_factory=dict
     )

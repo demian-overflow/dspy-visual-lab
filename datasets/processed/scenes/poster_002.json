@@ -4,11 +4,46 @@
   "background": "#e1e4e8",
   "objects": [
     {
-      "id": "skyline_illustration",
+      "id": "backdrop",
       "type": "illustration",
-      "bbox": {"x": 0, "y": 130, "width": 830, "height": 850},
-      "description": "Flat-color illustration of a city skyline (buildings split blue/orange) with airplane silhouettes and clouds above, and a winding black line of people (an evacuation queue) leading down from the buildings",
+      "bbox": {"x": 79, "y": 77, "width": 796, "height": 814},
+      "description": "Two-tone blue/orange abstract cloud-shaped color field behind the buildings, split roughly down the middle",
       "attributes": {"style": "flat vector silkscreen"}
+    },
+    {
+      "id": "buildings",
+      "type": "building",
+      "bbox": {"x": 249, "y": 445, "width": 467, "height": 446},
+      "description": "Four stepped city buildings with a window grid, outlined in black, rendered half blue / half orange to match the backdrop split",
+      "attributes": {}
+    },
+    {
+      "id": "queue",
+      "type": "crowd",
+      "bbox": {"x": 99, "y": 845, "width": 517, "height": 430},
+      "description": "Winding black path lined with a queue of white silhouette figures walking from the buildings down and around",
+      "attributes": {}
+    },
+    {
+      "id": "plane_upper",
+      "type": "airplane",
+      "bbox": {"x": 99, "y": 123, "width": 100, "height": 61},
+      "description": "Upper airplane silhouette, upper-left sky",
+      "attributes": {}
+    },
+    {
+      "id": "plane_lower",
+      "type": "airplane",
+      "bbox": {"x": 50, "y": 246, "width": 149, "height": 61},
+      "description": "Lower airplane silhouette, upper-left sky, below plane_upper",
+      "attributes": {}
+    },
+    {
+      "id": "clouds",
+      "type": "cloud",
+      "bbox": {"x": 159, "y": 61, "width": 706, "height": 337},
+      "description": "Four outlined cloud doodles scattered across the sky -- white on the left (over the blue half), blue-outlined on the right (over the orange half)",
+      "attributes": {}
     }
   ],
   "text": [
@@ -47,6 +82,7 @@
     {"hex": "#202338", "name": "near-black"}
   ],
   "layout": {"alignment": "left", "grid": "unknown", "spacing": {}},
+  "sentiment": "urgent but reassuring, civic-minded wartime safety appeal",
   "metadata": {
     "source": "https://commons.wikimedia.org/wiki/File:An_orderly_line_is_a_safe_line!_LCCN98516617.jpg",
     "license": "PD-USGov-WPA (public domain, U.S. federal government work)",

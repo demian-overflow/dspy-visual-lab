@@ -1,14 +1,35 @@
 {
   "width": 2999,
   "height": 3838,
-  "background": "#1a191b",
+  "background": "#ebd488",
   "objects": [
     {
-      "id": "mountain_landscape",
+      "id": "mountains",
       "type": "illustration",
-      "bbox": {"x": 0, "y": 0, "width": 2999, "height": 3147},
-      "description": "Flat-color Art Deco illustration of snow-capped mountains against a gold sky, dark pine forest silhouette, and a rider on horseback in the lower-left foreground",
+      "bbox": {"x": 0, "y": 77, "width": 2999, "height": 2725},
+      "description": "Snow-capped peaks in faceted Art Deco shading (white snow, dark blue-grey shadow planes) against the gold sky",
+      "attributes": {"style": "flat vector silkscreen", "palette": "white/navy on gold"}
+    },
+    {
+      "id": "pine_forest",
+      "type": "illustration",
+      "bbox": {"x": 0, "y": 2189, "width": 2999, "height": 691},
+      "description": "Dark jagged silhouette of a pine forest treeline along the horizon, in front of the mountain base",
       "attributes": {"style": "flat vector silkscreen"}
+    },
+    {
+      "id": "rider_on_horseback",
+      "type": "figure",
+      "bbox": {"x": 154, "y": 2553, "width": 480, "height": 557},
+      "description": "Rider on horseback, silhouetted in profile on a green foreground hillside, lower-left",
+      "attributes": {"style": "flat vector silkscreen", "colors": ["#8B5A2B", "navy rider"]}
+    },
+    {
+      "id": "wpa_logo",
+      "type": "logo",
+      "bbox": {"x": 1353, "y": 3580, "width": 230, "height": 125},
+      "description": "Small square \"USA WORK WPA\" federal program stamp, centered above the credit line",
+      "attributes": {}
     }
   ],
   "text": [
@@ -47,6 +68,7 @@
     {"hex": "#ebd488", "name": "gold"}
   ],
   "layout": {"alignment": "left", "grid": "unknown", "spacing": {}},
+  "sentiment": "aspirational, adventurous, patriotic tourism appeal",
   "metadata": {
     "source": "https://commons.wikimedia.org/wiki/File:See_America,_Welcome_to_Montana,_WPA_poster,_ca._1937.jpg",
     "license": "PD-USGov-WPA (public domain, U.S. federal government work)",
