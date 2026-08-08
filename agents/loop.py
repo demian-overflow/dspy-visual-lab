@@ -1,3 +1,5 @@
+import json
+
 from .state import AgentState
 
 
@@ -30,9 +32,15 @@ class CreativeAgent:
         )
 
 
-        state.scene = (
+        raw_scene = (
             self.parser(image)
             .scene
+        )
+
+        state.scene = (
+            json.loads(raw_scene)
+            if isinstance(raw_scene, str)
+            else raw_scene
         )
 
 
