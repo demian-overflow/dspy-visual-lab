@@ -1,4 +1,5 @@
 import argparse
+import asyncio
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -33,17 +34,19 @@ def run(samples, dataset_root: Path, optimize: bool = False) -> dict:
     examples = []
 
     for sample in samples:
-        image_path = str(dataset_root / sample.image_path)
+        # dspy.Image carries the actual image bytes to the model; a bare path
+        # string would be sent as text.
+        image = dspy.Image.from_path(str(dataset_root / sample.image_path))
         gold_scene = _load_scene_json(dataset_root, sample)
 
-        prediction = parser(image=image_path)
+        prediction = parser(image=image)
         pred_scene = json.loads(prediction.scene) if isinstance(prediction.scene, str) else prediction.scene
 
         score = scorer.score(gold_scene, pred_scene)
         results.append({"sample": sample.id, "score": score})
 
         examples.append(
-            dspy.Example(image=image_path, scene=json.dumps(gold_scene)).with_inputs("image")
+            dspy.Example(image=image, scene=json.dumps(gold_scene)).with_inputs("image")
         )
 
     if optimize:
@@ -56,7 +59,7 @@ def run(samples, dataset_root: Path, optimize: bool = False) -> dict:
     }
 
 
-def main():
+async def main():
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument("--manifest", default=str(DEFAULT_DATASET_ROOT / "manifests" / "train.json"))
     arg_parser.add_argument("--dataset-root", default=str(DEFAULT_DATASET_ROOT))
@@ -65,22 +68,29 @@ def main():
 
     langfuse_tracing.setup()
 
+    # HTTPClient wraps an aiohttp.ClientSession, which must be constructed
+    # inside a running event loop -- hence main() being async.
     client = HTTPClient()
-    adapter = build_adapter(VISION_MODEL, api_key=settings.gemini_api_key, client=client)
-    dspy.settings.configure(lm=AdapterLM(adapter=adapter, model_name=VISION_MODEL.name))
+    try:
+        adapter = build_adapter(VISION_MODEL, api_key=settings.gemini_api_key, client=client)
+        dspy.settings.configure(lm=AdapterLM(adapter=adapter, model_name=VISION_MODEL.name))
 
-    manifest = load_manifest(args.manifest)
-    samples = DatasetLoader().load(manifest)
+        manifest = load_manifest(args.manifest)
+        samples = DatasetLoader().load(manifest)
 
-    result = run(samples, dataset_root=Path(args.dataset_root), optimize=args.optimize)
+        # `run` is sync; AdapterLM bridges its LM calls onto a background loop,
+        # so calling it from here does not clash with this running loop.
+        result = run(samples, dataset_root=Path(args.dataset_root), optimize=args.optimize)
 
-    ExperimentTracker().save(result["experiment"], result)
+        ExperimentTracker().save(result["experiment"], result)
 
-    for r in result["results"]:
-        print(f"{r['sample']}: {r['score']:.3f}")
+        for r in result["results"]:
+            print(f"{r['sample']}: {r['score']:.3f}")
 
-    langfuse_tracing.flush()
+        langfuse_tracing.flush()
+    finally:
+        await client.close()
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
