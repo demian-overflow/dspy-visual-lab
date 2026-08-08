@@ -1,0 +1,71 @@
+{
+  "width": 986,
+  "height": 1536,
+  "background": "#ffffff",
+  "objects": [
+    {
+      "id": "firecracker_character",
+      "type": "illustration",
+      "bbox": {"x": 40, "y": 390, "width": 920, "height": 1130},
+      "description": "Stylized red firecracker with a fuse/spark at upper-left and a tail at the right, drawn as a face -- the poster's central character",
+      "attributes": {"style": "flat vector silkscreen", "colors": ["red", "white"]}
+    },
+    {
+      "id": "wpa_logo",
+      "type": "logo",
+      "bbox": {"x": 858, "y": 1467, "width": 108, "height": 38},
+      "description": "Small \"USA WORK WPA\" federal program stamp, bottom-right",
+      "attributes": {}
+    }
+  ],
+  "text": [
+    {
+      "id": "dept_line",
+      "content": "DEPT OF HEALTH ★ NEW YORK CITY",
+      "bbox": {"x": 49, "y": 77, "width": 661, "height": 107},
+      "font_family": "sans-serif",
+      "font_size": 34,
+      "font_weight": "normal",
+      "color": "#c8202e"
+    },
+    {
+      "id": "be_wise",
+      "content": "BE WISE",
+      "bbox": {"x": 59, "y": 200, "width": 828, "height": 230},
+      "font_family": "sans-serif",
+      "font_size": 180,
+      "font_weight": "bold",
+      "color": "#ffffff"
+    },
+    {
+      "id": "dont_play",
+      "content": "DON'T PLAY WITH",
+      "bbox": {"x": 99, "y": 445, "width": 808, "height": 231},
+      "font_family": "sans-serif",
+      "font_size": 150,
+      "font_weight": "bold",
+      "color": "#ffffff"
+    },
+    {
+      "id": "firecrackers",
+      "content": "FIRECRACKERS",
+      "bbox": {"x": 128, "y": 691, "width": 828, "height": 231},
+      "font_family": "sans-serif",
+      "font_size": 150,
+      "font_weight": "bold",
+      "color": "#ffffff"
+    }
+  ],
+  "colors": [
+    {"hex": "#ffffff", "name": "white background"},
+    {"hex": "#1c3f8f", "name": "banner blue"},
+    {"hex": "#c8202e", "name": "firecracker red"}
+  ],
+  "layout": {"alignment": "diagonal", "grid": "unknown", "spacing": {}},
+  "sentiment": "urgent, cautionary, alarmed -- stern child-safety warning aimed at kids",
+  "metadata": {
+    "source": "https://commons.wikimedia.org/wiki/File:Be_wise_Don%27t_play_with_firecrackers.jpg",
+    "license": "PD-USGov-WPA (public domain, U.S. federal government work)",
+    "publisher": "NYC Dept. of Health / WPA Federal Art Project, ca. 1937"
+  }
+}

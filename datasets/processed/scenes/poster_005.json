@@ -1,0 +1,70 @@
+{
+  "width": 977,
+  "height": 1536,
+  "background": "#f2efe9",
+  "objects": [
+    {
+      "id": "hand_arm",
+      "type": "illustration",
+      "bbox": {"x": 49, "y": 77, "width": 469, "height": 967},
+      "description": "Stylized hand and forearm rendered half skin-tone/pink half gray-blue, reaching down under running water, upper-left",
+      "attributes": {"style": "flat vector silkscreen"}
+    },
+    {
+      "id": "brush",
+      "type": "illustration",
+      "bbox": {"x": 508, "y": 691, "width": 420, "height": 507},
+      "description": "Scrub brush with visible bristles and drips, lower-right",
+      "attributes": {}
+    },
+    {
+      "id": "water_lines",
+      "type": "decoration",
+      "bbox": {"x": 49, "y": 922, "width": 469, "height": 122},
+      "description": "Wavy horizontal white lines indicating running water, left-middle",
+      "attributes": {}
+    }
+  ],
+  "text": [
+    {
+      "id": "keep",
+      "content": "KEEP",
+      "bbox": {"x": 508, "y": 123, "width": 449, "height": 246},
+      "font_family": "sans-serif",
+      "font_size": 190,
+      "font_weight": "bold",
+      "color": "#a9b4bd"
+    },
+    {
+      "id": "clean",
+      "content": "CLEAN",
+      "bbox": {"x": 0, "y": 1160, "width": 508, "height": 284},
+      "font_family": "sans-serif",
+      "font_size": 220,
+      "font_weight": "bold",
+      "color": "#ffffff"
+    },
+    {
+      "id": "credit",
+      "content": "FEDERAL ART PROJECT",
+      "bbox": {"x": 20, "y": 1467, "width": 175, "height": 31},
+      "font_family": "sans-serif",
+      "font_size": 12,
+      "font_weight": "normal",
+      "color": "#16233c"
+    }
+  ],
+  "colors": [
+    {"hex": "#f2efe9", "name": "off-white background"},
+    {"hex": "#d99a8c", "name": "salmon pink"},
+    {"hex": "#a9b4bd", "name": "gray-blue"},
+    {"hex": "#16233c", "name": "navy"}
+  ],
+  "layout": {"alignment": "left", "grid": "2x2", "spacing": {}},
+  "sentiment": "clean, direct, instructional -- plainspoken hygiene reminder with a calm, matter-of-fact tone",
+  "metadata": {
+    "source": "https://commons.wikimedia.org/wiki/File:Keep_clean_LCCN98516190.jpg",
+    "license": "PD-USGov-WPA (public domain, U.S. federal government work)",
+    "publisher": "WPA Federal Art Project, ca. 1936-1939"
+  }
+}

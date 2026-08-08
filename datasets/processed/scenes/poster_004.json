@@ -1,0 +1,111 @@
+{
+  "width": 977,
+  "height": 1536,
+  "background": "#b8532d",
+  "objects": [
+    {
+      "id": "fire_escape_structure",
+      "type": "illustration",
+      "bbox": {"x": 147, "y": 46, "width": 781, "height": 1183},
+      "description": "Dark navy zigzag fire-escape scaffolding running diagonally through the illustration, three landings tall",
+      "attributes": {"style": "flat vector silkscreen"}
+    },
+    {
+      "id": "hanging_blanket",
+      "type": "illustration",
+      "bbox": {"x": 342, "y": 154, "width": 342, "height": 276},
+      "description": "Large white/teal blanket draped over the top fire-escape landing, blocking the exit",
+      "attributes": {}
+    },
+    {
+      "id": "laundry_and_cat",
+      "type": "illustration",
+      "bbox": {"x": 537, "y": 645, "width": 420, "height": 308},
+      "description": "Hanging white sheet with a black-and-white cat silhouette on the line, right side",
+      "attributes": {}
+    },
+    {
+      "id": "bucket_and_mop",
+      "type": "illustration",
+      "bbox": {"x": 137, "y": 953, "width": 205, "height": 245},
+      "description": "Teal bucket with a mop leaning against it, lower-left landing",
+      "attributes": {}
+    },
+    {
+      "id": "potted_plants",
+      "type": "illustration",
+      "bbox": {"x": 147, "y": 31, "width": 683, "height": 276},
+      "description": "Potted plants cluttering the upper fire-escape landings, left and right",
+      "attributes": {}
+    }
+  ],
+  "text": [
+    {
+      "id": "line1",
+      "content": "KEEP YOUR",
+      "bbox": {"x": 195, "y": 1221, "width": 538, "height": 77},
+      "font_family": "sans-serif",
+      "font_size": 55,
+      "font_weight": "bold",
+      "color": "#ffffff"
+    },
+    {
+      "id": "line2",
+      "content": "FIRE ESCAPES",
+      "bbox": {"x": 147, "y": 1298, "width": 683, "height": 92},
+      "font_family": "sans-serif",
+      "font_size": 68,
+      "font_weight": "bold",
+      "color": "#16233c"
+    },
+    {
+      "id": "line3",
+      "content": "CLEAR",
+      "bbox": {"x": 410, "y": 1390, "width": 196, "height": 62},
+      "font_family": "sans-serif",
+      "font_size": 55,
+      "font_weight": "bold",
+      "color": "#ffffff"
+    },
+    {
+      "id": "credit_left",
+      "content": "F.H. LAGUARDIA MAYOR",
+      "bbox": {"x": 29, "y": 1452, "width": 284, "height": 46},
+      "font_family": "sans-serif",
+      "font_size": 16,
+      "font_weight": "normal",
+      "color": "#16233c"
+    },
+    {
+      "id": "credit_right",
+      "content": "LANGDON W. POST COMMISSIONER",
+      "bbox": {"x": 606, "y": 1444, "width": 342, "height": 54},
+      "font_family": "sans-serif",
+      "font_size": 16,
+      "font_weight": "normal",
+      "color": "#16233c"
+    },
+    {
+      "id": "credit_bottom",
+      "content": "TENEMENT HOUSE DEPT. OF THE CITY OF NEW YORK",
+      "bbox": {"x": 98, "y": 1498, "width": 781, "height": 30},
+      "font_family": "sans-serif",
+      "font_size": 14,
+      "font_weight": "normal",
+      "color": "#16233c"
+    }
+  ],
+  "colors": [
+    {"hex": "#b8532d", "name": "rust orange"},
+    {"hex": "#4f9e8f", "name": "teal"},
+    {"hex": "#16233c", "name": "navy"},
+    {"hex": "#f5f2ea", "name": "off-white"}
+  ],
+  "layout": {"alignment": "center", "grid": "unknown", "spacing": {}},
+  "sentiment": "practical, civic-minded -- earnest household safety reminder with a cluttered, homely illustration",
+  "metadata": {
+    "source": "https://commons.wikimedia.org/wiki/File:Keep_your_fire_escapes_clear_LCCN98516613.jpg",
+    "license": "PD-USGov-WPA (public domain, U.S. federal government work)",
+    "publisher": "Tenement House Dept. of the City of New York / WPA Federal Art Project, ca. 1936-1937"
+  }
+}

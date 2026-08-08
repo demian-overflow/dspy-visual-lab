@@ -12,5 +12,26 @@
     "category": "poster",
     "difficulty": "easy",
     "scene_path": "processed/scenes/poster_002.json"
+  },
+  {
+    "id": "poster_003",
+    "image_path": "raw/images/poster_003.jpg",
+    "category": "poster",
+    "difficulty": "medium",
+    "scene_path": "processed/scenes/poster_003.json"
+  },
+  {
+    "id": "poster_004",
+    "image_path": "raw/images/poster_004.jpg",
+    "category": "poster",
+    "difficulty": "hard",
+    "scene_path": "processed/scenes/poster_004.json"
+  },
+  {
+    "id": "poster_005",
+    "image_path": "raw/images/poster_005.jpg",
+    "category": "poster",
+    "difficulty": "easy",
+    "scene_path": "processed/scenes/poster_005.json"
   }
 ]
