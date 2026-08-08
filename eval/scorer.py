@@ -34,6 +34,22 @@ class SceneScorer:
         ]
         return sum(scores) / len(scores)
 
+    @staticmethod
+    def _canvas(gold, gold_elements, axis):
+        """Canvas extent to normalize layout deltas against.
+
+        Prefers the gold scene's declared size; falls back to the furthest
+        gold element edge so scenes without width/height still score sanely.
+        """
+        declared = gold.get(axis)
+        if declared:
+            return declared
+
+        size = "width" if axis == "width" else "height"
+        origin = "x" if axis == "width" else "y"
+        extents = [e["bbox"][origin] + e["bbox"][size] for e in gold_elements]
+        return max(extents) or 1
+
     def _layout_score(self, gold, pred):
         gold_elements = gold.get("objects", []) + gold.get("text", [])
         pred_elements = pred.get("objects", []) + pred.get("text", [])
@@ -41,15 +57,13 @@ class SceneScorer:
             return 1.0
         pairs = match_by_bbox(gold_elements, pred_elements)
 
-        class Box:
-            def __init__(self, bbox):
-                self.x = bbox["x"]
-                self.y = bbox["y"]
-                self.width = bbox["width"]
-                self.height = bbox["height"]
+        canvas_width = self._canvas(gold, gold_elements, "width")
+        canvas_height = self._canvas(gold, gold_elements, "height")
 
         scores = [
-            max(0.0, bbox_similarity(Box(g["bbox"]), Box(p["bbox"]))) if p else 0.0
+            max(0.0, bbox_similarity(g["bbox"], p["bbox"], canvas_width, canvas_height))
+            if p
+            else 0.0
             for g, p in pairs
         ]
         return sum(scores) / len(scores)

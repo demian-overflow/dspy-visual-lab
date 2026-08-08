@@ -33,25 +33,38 @@ def color_similarity(
 
 
 
+def _coord(box, key):
+    """Read a bbox field from either an object or a mapping."""
+    if isinstance(box, dict):
+        return box[key]
+    return getattr(box, key)
+
+
 def bbox_similarity(
     a,
-    b
+    b,
+    canvas_width=None,
+    canvas_height=None
 ):
+    """Similarity of two bboxes, normalized by the canvas they live on.
 
-    dx = abs(a.x - b.x)
-    dy = abs(a.y - b.y)
+    Deltas are expressed as fractions of the canvas, so the same *relative*
+    error scores the same on a 994x1536 image as on a 2999x3838 one. A fixed
+    pixel constant made this wildly scale-dependent.
+    """
 
-    dw = abs(
-        a.width-b.width
-    )
+    width = canvas_width or 1
+    height = canvas_height or 1
 
-    dh = abs(
-        a.height-b.height
-    )
+    dx = abs(_coord(a, "x") - _coord(b, "x")) / width
+    dy = abs(_coord(a, "y") - _coord(b, "y")) / height
+
+    dw = abs(_coord(a, "width") - _coord(b, "width")) / width
+    dh = abs(_coord(a, "height") - _coord(b, "height")) / height
 
     return 1 - (
         dx+dy+dw+dh
-    ) / 4000
+    ) / 4
 
 
 def _bbox_center(bbox):
