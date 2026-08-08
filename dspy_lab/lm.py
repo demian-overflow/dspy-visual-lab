@@ -1,6 +1,63 @@
 import asyncio
+import threading
 
 import dspy
+
+_loop = None
+_loop_lock = threading.Lock()
+
+
+def _background_loop():
+    """A long-lived event loop running on a daemon thread.
+
+    Sync `forward()` cannot use `asyncio.run()`: DSPy modules are routinely
+    called synchronously from inside async code (e.g. `CreativeAgent.run`),
+    where that raises "asyncio.run() cannot be called from a running event
+    loop". Driving every sync call from one background loop works in both
+    cases, and keeps all adapter I/O (including the aiohttp session) on a
+    single, stable loop.
+    """
+    global _loop
+
+    with _loop_lock:
+        if _loop is None:
+            _loop = asyncio.new_event_loop()
+            threading.Thread(
+                target=_loop.run_forever,
+                name="adapter-lm-loop",
+                daemon=True,
+            ).start()
+
+    return _loop
+
+
+class _Message:
+    def __init__(self, content, role="assistant"):
+        self.role = role
+        self.content = content
+        self.tool_calls = None
+
+
+class _Choice:
+    def __init__(self, message, finish_reason="stop"):
+        self.message = message
+        self.finish_reason = finish_reason
+        self.logprobs = None
+
+
+class _Response:
+    """Minimal OpenAI-shaped response object.
+
+    DSPy's `BaseLM._process_completion` reads `response.choices[0].message.content`
+    by *attribute*, so a plain dict is not a valid legacy `forward()` return value.
+    """
+
+    def __init__(self, text, model):
+        self.choices = [_Choice(_Message(text))]
+        self.model = model
+        self.usage = None
+        self.id = None
+        self.cache_hit = False
 
 
 class AdapterLM(dspy.LM):
@@ -29,17 +86,10 @@ class AdapterLM(dspy.LM):
         messages = messages or [{"role": "user", "content": prompt}]
 
         raw_response = await self.adapter.generate(messages, **kwargs)
-        text = self._extract_text(raw_response)
 
-        return {
-            "choices": [
-                {
-                    "message": {"role": "assistant", "content": text},
-                    "finish_reason": "stop",
-                }
-            ],
-            "model": self.model,
-        }
+        return _Response(self._extract_text(raw_response), self.model)
 
     def forward(self, prompt=None, messages=None, **kwargs):
-        return asyncio.run(self.aforward(prompt=prompt, messages=messages, **kwargs))
+        coroutine = self.aforward(prompt=prompt, messages=messages, **kwargs)
+
+        return asyncio.run_coroutine_threadsafe(coroutine, _background_loop()).result()
