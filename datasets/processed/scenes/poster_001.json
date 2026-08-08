@@ -1,0 +1,55 @@
+{
+  "width": 2999,
+  "height": 3838,
+  "background": "#1a191b",
+  "objects": [
+    {
+      "id": "mountain_landscape",
+      "type": "illustration",
+      "bbox": {"x": 0, "y": 0, "width": 2999, "height": 3147},
+      "description": "Flat-color Art Deco illustration of snow-capped mountains against a gold sky, dark pine forest silhouette, and a rider on horseback in the lower-left foreground",
+      "attributes": {"style": "flat vector silkscreen"}
+    }
+  ],
+  "text": [
+    {
+      "id": "title",
+      "content": "SEE AMERICA",
+      "bbox": {"x": 90, "y": 3237, "width": 2895, "height": 255},
+      "font_family": "sans-serif",
+      "font_size": 220,
+      "font_weight": "bold",
+      "color": "#f6f7f7"
+    },
+    {
+      "id": "subtitle",
+      "content": "WELCOME TO MONTANA",
+      "bbox": {"x": 97, "y": 3499, "width": 2858, "height": 128},
+      "font_family": "sans-serif",
+      "font_size": 110,
+      "font_weight": "bold",
+      "color": "#f6f7f7"
+    },
+    {
+      "id": "tagline",
+      "content": "UNITED STATES TRAVEL BUREAU",
+      "bbox": {"x": 97, "y": 3634, "width": 2805, "height": 83},
+      "font_family": "sans-serif",
+      "font_size": 70,
+      "font_weight": "normal",
+      "color": "#ebd488"
+    }
+  ],
+  "colors": [
+    {"hex": "#1a191b", "name": "near-black"},
+    {"hex": "#2e3948", "name": "dark mountain blue"},
+    {"hex": "#f6f7f7", "name": "snow white"},
+    {"hex": "#ebd488", "name": "gold"}
+  ],
+  "layout": {"alignment": "left", "grid": "unknown", "spacing": {}},
+  "metadata": {
+    "source": "https://commons.wikimedia.org/wiki/File:See_America,_Welcome_to_Montana,_WPA_poster,_ca._1937.jpg",
+    "license": "PD-USGov-WPA (public domain, U.S. federal government work)",
+    "artist": "M. Weitzman, Works Progress Administration Federal Art Project, ca. 1937"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "width": 994,
+  "height": 1536,
+  "background": "#e1e4e8",
+  "objects": [
+    {
+      "id": "skyline_illustration",
+      "type": "illustration",
+      "bbox": {"x": 0, "y": 130, "width": 830, "height": 850},
+      "description": "Flat-color illustration of a city skyline (buildings split blue/orange) with airplane silhouettes and clouds above, and a winding black line of people (an evacuation queue) leading down from the buildings",
+      "attributes": {"style": "flat vector silkscreen"}
+    }
+  ],
+  "text": [
+    {
+      "id": "line1",
+      "content": "AN ORDERLY LINE",
+      "bbox": {"x": 435, "y": 1257, "width": 440, "height": 55},
+      "font_family": "sans-serif",
+      "font_size": 55,
+      "font_weight": "bold",
+      "color": "#5a8dd3"
+    },
+    {
+      "id": "line2",
+      "content": "IS A SAFE LINE!",
+      "bbox": {"x": 430, "y": 1357, "width": 475, "height": 65},
+      "font_family": "sans-serif",
+      "font_size": 60,
+      "font_weight": "bold",
+      "color": "#d75808"
+    },
+    {
+      "id": "credit",
+      "content": "N.Y.C. WPA WAR SERVICES",
+      "bbox": {"x": 350, "y": 1472, "width": 280, "height": 25},
+      "font_family": "sans-serif",
+      "font_size": 18,
+      "font_weight": "normal",
+      "color": "#8a8f96"
+    }
+  ],
+  "colors": [
+    {"hex": "#e1e4e8", "name": "off-white background"},
+    {"hex": "#5a8dd3", "name": "flat blue"},
+    {"hex": "#d75808", "name": "flat orange"},
+    {"hex": "#202338", "name": "near-black"}
+  ],
+  "layout": {"alignment": "left", "grid": "unknown", "spacing": {}},
+  "metadata": {
+    "source": "https://commons.wikimedia.org/wiki/File:An_orderly_line_is_a_safe_line!_LCCN98516617.jpg",
+    "license": "PD-USGov-WPA (public domain, U.S. federal government work)",
+    "publisher": "N.Y.C. WPA War Services, ca. 1941-1943"
+  }
+}

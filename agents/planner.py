@@ -1,4 +1,4 @@
-from dspy.modules.tool_planner import ToolPlanner
+from dspy_lab.modules.tool_planner import ToolPlanner
 
 
 class AgentPlanner:

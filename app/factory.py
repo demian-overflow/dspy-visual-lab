@@ -4,7 +4,7 @@ from agents import (
     AgentExecutor
 )
 
-from dspy.modules.scene_parser import SceneParser
+from dspy_lab.modules.scene_parser import SceneParser
 
 from eval import SceneScorer
 
