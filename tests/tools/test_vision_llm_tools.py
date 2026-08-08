@@ -38,3 +38,23 @@ async def test_detect_objects_parses_gemini_json_response(two_color_image):
         result = await detect_objects(str(two_color_image))
 
     assert result["objects"][0]["type"] == "logo"
+
+
+@pytest.mark.asyncio
+async def test_ocr_raises_clear_error_on_non_json_response(two_color_image):
+    fake_vision = AsyncMock(
+        return_value={"candidates": [{"content": {"parts": [{"text": "not json"}]}}]}
+    )
+    with patch("tools.vision.ocr._get_adapter") as get_adapter:
+        get_adapter.return_value.vision = fake_vision
+        with pytest.raises(ValueError, match="did not return valid JSON"):
+            await ocr(str(two_color_image))
+
+
+@pytest.mark.asyncio
+async def test_detect_objects_raises_clear_error_on_malformed_response_shape(two_color_image):
+    fake_vision = AsyncMock(return_value={"unexpected": "shape"})
+    with patch("tools.vision.objects._get_adapter") as get_adapter:
+        get_adapter.return_value.vision = fake_vision
+        with pytest.raises(ValueError, match="unexpected Gemini response shape"):
+            await detect_objects(str(two_color_image))

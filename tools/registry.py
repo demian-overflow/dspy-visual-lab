@@ -28,6 +28,11 @@ def list_tools():
 
 async def call_tool(name, **kwargs):
 
+    if name not in TOOLS:
+        raise KeyError(
+            f"call_tool: unknown tool {name!r} (registered: {sorted(TOOLS)})"
+        )
+
     tool = TOOLS[name]
 
     return await tool["function"](

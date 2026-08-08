@@ -12,6 +12,9 @@ cp .env-example .env  # fill in real OPENROUTER_API_KEY, GEMINI_API_KEY,
                        # and LANGFUSE_PUBLIC_KEY/LANGFUSE_SECRET_KEY
 ```
 
+See [`docs/ENV_SETUP.md`](docs/ENV_SETUP.md) for where to get each key and
+what each one is used for.
+
 ## Run
 
 ```bash
