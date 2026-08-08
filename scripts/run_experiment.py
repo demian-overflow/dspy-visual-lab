@@ -27,10 +27,13 @@ def _load_scene_json(dataset_root: Path, sample) -> dict:
     return json.loads((dataset_root / sample.scene_path).read_text())
 
 
-def run(samples, dataset_root: Path, optimize: bool = False) -> dict:
-    scorer = SceneScorer()
-    parser = SceneParser()
+def _score_samples(parser, scorer, samples, dataset_root: Path):
+    """Run `parser` over every sample and score it against gold.
 
+    Returns (results, examples) -- `examples` carries real Scene instances
+    (matching ExtractScene.scene's typed field) so it can double as a
+    MIPROv2 trainset without a second image-loading pass.
+    """
     results = []
     examples = []
 
@@ -46,21 +49,37 @@ def run(samples, dataset_root: Path, optimize: bool = False) -> dict:
         score = scorer.score(gold_scene, pred_scene)
         results.append({"sample": sample.id, "score": score})
 
-        # ExtractScene.scene is a typed Scene field, so a demo example's
-        # value needs to be a real Scene instance (not a JSON string) to
-        # match what MIPROv2 will actually format into the prompt.
         examples.append(
             dspy.Example(image=image, scene=Scene(**gold_scene)).with_inputs("image")
         )
 
-    if optimize:
-        run_optimize(parser, examples, metric=parser_metric)
+    return results, examples
 
-    return {
+
+def run(samples, dataset_root: Path, optimize: bool = False) -> dict:
+    scorer = SceneScorer()
+    parser = SceneParser()
+
+    results, examples = _score_samples(parser, scorer, samples, dataset_root)
+
+    output = {
         "experiment": "creative-reconstruction-v1",
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "results": results,
     }
+
+    if optimize:
+        # Re-use `examples` (real Scene instances, already built above) as
+        # the MIPROv2 trainset, then re-score every sample with the
+        # *returned* optimized program -- the whole point of --optimize is
+        # to see whether the optimized prompt actually scores higher, so
+        # discarding the compiled program here would make this flag a
+        # no-op.
+        optimized_parser = run_optimize(parser, examples, metric=parser_metric)
+        optimized_results, _ = _score_samples(optimized_parser, scorer, samples, dataset_root)
+        output["optimized_results"] = optimized_results
+
+    return output
 
 
 async def main():
@@ -88,8 +107,19 @@ async def main():
 
         ExperimentTracker().save(result["experiment"], result)
 
-        for r in result["results"]:
-            print(f"{r['sample']}: {r['score']:.3f}")
+        if "optimized_results" in result:
+            optimized_by_sample = {r["sample"]: r["score"] for r in result["optimized_results"]}
+            print(f"{'sample':<14}{'before':>10}{'after':>10}{'diff':>10}")
+            for r in result["results"]:
+                after = optimized_by_sample[r["sample"]]
+                diff = after - r["score"]
+                print(f"{r['sample']:<14}{r['score']:>10.3f}{after:>10.3f}{diff:>+10.3f}")
+            before_avg = sum(r["score"] for r in result["results"]) / len(result["results"])
+            after_avg = sum(optimized_by_sample.values()) / len(optimized_by_sample)
+            print(f"{'avg':<14}{before_avg:>10.3f}{after_avg:>10.3f}{after_avg - before_avg:>+10.3f}")
+        else:
+            for r in result["results"]:
+                print(f"{r['sample']}: {r['score']:.3f}")
 
         langfuse_tracing.flush()
     finally:
